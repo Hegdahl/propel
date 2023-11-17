@@ -1,0 +1,35 @@
+---
+Checks: "*,
+        -abseil-*,
+        -altera-*,
+        -android-*,
+        -fuchsia-*,
+        -llvm*,
+        -zircon-*,
+        -cppcoreguidelines-non-private-member-variables-in-classes,
+        -misc-non-private-member-variables-in-classes,
+
+        -cppcoreguidelines-pro-bounds-constant-array-index,
+        -cppcoreguidelines-avoid-magic-numbers,
+        -readability-magic-numbers,
+        -cppcoreguidelines-macro-usage,
+        -google-build-using-namespace,
+        -misc-no-recursion,
+"
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*'
+FormatStyle: file
+
+CheckOptions:
+  - key: readability-identifier-length.IgnoredVariableNames
+    value: 'x|y|z|i|n'
+  - key: readability-identifier-length.IgnoredParameterNames
+    value: 'x|y|z|i|n'
+  - { key: readability-identifier-naming.NamespaceCase,        value: lower_case }
+  - { key: readability-identifier-naming.ClassCase,            value: CamelCase  }
+  - { key: readability-identifier-naming.PrivateMemberSuffix,  value: _          }
+  - { key: readability-identifier-naming.StructCase,           value: CamelCase  }
+  - { key: readability-identifier-naming.FunctionCase,         value: lower_case }
+  - { key: readability-identifier-naming.VariableCase,         value: lower_case }
+  - { key: readability-identifier-naming.GlobalConstantCase,   value: CamelCase  }
+  - { key: readability-identifier-naming.GlobalConstantPrefix, value: k          }
