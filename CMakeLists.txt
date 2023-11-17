@@ -4,6 +4,9 @@ project(Propel
   VERSION 0.1.0
   LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(Catch2 3 REQUIRED)
 
 option(DEV_MODE "Enable options for working on TMCT, like -Werror." OFF)
@@ -66,3 +69,5 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 endif()
 
 target_sources(tests PRIVATE tests/ints.cpp)
+target_sources(tests PRIVATE tests/algebra.cpp)
+target_sources(tests PRIVATE tests/range_queries/PrefixSum.cpp)
