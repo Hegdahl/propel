@@ -43,4 +43,8 @@ class GroupHelper : public MonoidHelper<T, Merge, Identity, ExtraTags...> {
     constexpr auto inverse(const T &x) -> T { return inverse_(x); }
 };
 
+template <class Merge, class Identity, class Inverse>
+GroupHelper(Merge &&merge, Identity &&identity, Inverse &&inverse)
+    -> GroupHelper<decltype(identity()), Merge, Identity, Inverse>;
+
 }  // namespace propel::algebra
