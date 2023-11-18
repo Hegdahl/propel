@@ -3,6 +3,7 @@
 #include <iterator>
 #include <propel/algebra/concepts.hpp>
 #include <utility>
+#include <vector>
 
 namespace propel::range_queries {
 
