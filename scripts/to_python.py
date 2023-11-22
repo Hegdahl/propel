@@ -6,7 +6,7 @@ import sys
 import tempfile
 
 with tempfile.NamedTemporaryFile() as exe_file:
-    compile_command = f'g++-12 -Os {" ".join(sys.argv[1:])} -o {exe_file.name}'
+    compile_command = f'g++-12 {" ".join(sys.argv[1:])} -o {exe_file.name}'
     strip_command = f'strip {exe_file.name}'
 
     res = subprocess.run(compile_command, shell=True)

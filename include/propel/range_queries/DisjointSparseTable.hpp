@@ -20,8 +20,8 @@ class DisjointSparseTable {
 
   public:
     template <class Begin, std::sentinel_for<Begin> End>
-    DisjointSparseTable(Begin begin, End end, Algebra &&algebra = Algebra())
-        : algebra_(std::forward<Algebra>(algebra)), n_(std::distance(begin, end)) {
+    DisjointSparseTable(Begin begin, End end, Algebra algebra = Algebra())
+        : algebra_(algebra, n_(std::distance(begin, end)) {
         std::size_t levels = 1;
         std::size_t half_width = 1;
         while ((half_width << 1U) < n_) {
@@ -55,24 +55,11 @@ class DisjointSparseTable {
 
     template <std::ranges::range Range,
               class = std::enable_if_t<!std::is_same_v<std::remove_cvref_t<Range>, DisjointSparseTable>>>
-    explicit DisjointSparseTable(Range &&range, Algebra &&algebra = Algebra())
-        : DisjointSparseTable(range.begin(), range.end(), std::forward<Algebra>(algebra)) {}
+    explicit DisjointSparseTable(Range &&range, Algebra algebra = Algebra())
+        : DisjointSparseTable(range.begin(), range.end(), algebra) {}
 
     // range merge values from the range [i, j)
-    auto fold(std::size_t i, std::size_t j) const -> value_type {
-        if (i == j) {
-            return algebra_.identity();
-        }
-        --j;
-        if (i == j) {
-            return row(0)[i];
-        }
-        std::size_t level = std::bit_width(i ^ j);
-        return algebra_.merge(row(level)[i], row(level)[j]);
-    }
-
-    // range merge values from the range [i, j)
-    auto fold(std::size_t i, std::size_t j) -> value_type {
+    [[nodiscard]] auto fold(std::size_t i, std::size_t j) -> value_type {
         if (i == j) {
             return algebra_.identity();
         }
@@ -85,7 +72,8 @@ class DisjointSparseTable {
     }
 
   private:
-    auto row(std::size_t height) -> std::span<value_type> { return std::span(data_.data() + height * n_, n_); }
+    auto row(std::size_t height) -> std::span<value_type> {
+        return std::span(data_.data() + height * n_, n_); }
 };
 
 }  // namespace propel::range_queries

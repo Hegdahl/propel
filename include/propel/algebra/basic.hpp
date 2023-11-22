@@ -17,7 +17,7 @@ using Max =
     MonoidHelper<T, extra_functional::Max<T>, std::integral_constant<T, std::numeric_limits<T>::min()>, CommutativeTag>;
 
 template <class T>
-using Xor = GroupHelper<T, std::bit_xor<T>, std::integral_constant<T, T(0)>, std::bit_xor<T>, CommutativeTag>;
+using Xor = GroupHelper<T, std::bit_xor<T>, std::integral_constant<T, T(0)>, std::identity, CommutativeTag>;
 
 template <class T>
 using And = MonoidHelper<T, std::bit_and<T>, std::integral_constant<T, static_cast<T>(~T(0))>, CommutativeTag>;

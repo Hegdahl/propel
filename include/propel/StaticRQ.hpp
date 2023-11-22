@@ -26,13 +26,13 @@ template <algebra::Magma Algebra>
 using StaticRQ = typename detail::ImplStaticRQ<Algebra>::type;
 
 template <class Begin, std::sentinel_for<Begin> End, algebra::Magma Algebra>
-auto make_static_rq(Begin begin, End end, Algebra &&algebra) -> StaticRQ<Algebra> {
-    return StaticRQ<Algebra>(begin, end, std::forward<Algebra>(algebra));
+auto make_static_rq(Begin begin, End end, Algebra algebra) -> StaticRQ<Algebra> {
+    return StaticRQ<Algebra>(begin, end, algebra);
 }
 
 template <std::ranges::range Range, algebra::Magma Algebra>
-auto make_static_rq(Range &&range, Algebra &&algebra) -> StaticRQ<Algebra> {
-    return StaticRQ<Algebra>(std::forward<Range>(range), std::forward<Algebra>(algebra));
+auto make_static_rq(Range &&range, Algebra algebra) -> StaticRQ<Algebra> {
+    return StaticRQ<Algebra>(std::forward<Range>(range), algebra);
 }
 
 }  // namespace propel
